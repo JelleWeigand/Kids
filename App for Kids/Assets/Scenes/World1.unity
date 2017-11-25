@@ -2329,12 +2329,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layers: []
   moveSpeed: 0
-  slideSlope: 300
+  slideSlope: 800
   borderBounce: 2
   scrollMargin: 300
   marginSpringiness: 10000
   marginPressure: 0
   moveSpeedMargin: 10
+  moveSpeedExp: 1.5
 --- !u!4 &2011932322
 Transform:
   m_ObjectHideFlags: 0
