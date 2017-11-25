@@ -89,7 +89,7 @@ public class Touchtest : MonoBehaviour {
             else if(baseLayer.transform.position.x<borderLeft) {
                 moveSpeed = 0;
                 marginPressure = Mathf.Clamp((Mathf.Lerp(0.0f,1.0f,Mathf.Abs((Mathf.Abs(baseLayer.transform.position.x) - borderLeft) / scrollMargin)) * marginSpringiness * Time.deltaTime),0,borderLeft - baseLayer.transform.position.x);
-                Debug.Log(Time.deltaTime);
+                
             }
             else {
                 marginPressure = 0;

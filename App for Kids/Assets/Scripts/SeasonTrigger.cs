@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SummerTrigger : MonoBehaviour {
+public class SeasonTrigger : MonoBehaviour
+{
 
-    public GameObject zeroLayer;
+    public GameObject positionObject;
     public GameObject leftBorder;
     public GameObject rightBorder;
     public float resetTimeSec;
@@ -23,16 +24,18 @@ public class SummerTrigger : MonoBehaviour {
         insideSeason = false;
     }
 
-    void Update () {
+    void Update()
+    {
 
-        x = zeroLayer.transform.position.x;
+        x = positionObject.transform.position.x;
         tresholdL = leftBorder.transform.position.x;
         tresholdR = rightBorder.transform.position.x;
         // inside Season
         if (x > tresholdL && x < tresholdR)
         {
             insideSeason = true;
-        } else
+        }
+        else
         {
             insideSeason = false;
             isTriggered = false;
@@ -42,14 +45,14 @@ public class SummerTrigger : MonoBehaviour {
         if (insideSeason && timer <= 0 && !isTriggered)
         {
             timer = resetTimeSec;
-            SeasonTriggerUnique();
+            TriggerUnique();
             isTriggered = true;
         }
         // triggers all the triggers that happen every resetTime
         if (insideSeason && timer <= 0)
         {
             timer = resetTimeSec;
-            SeasonTrigger();
+            Trigger();
             isTriggered = true;
         }
 
@@ -57,15 +60,15 @@ public class SummerTrigger : MonoBehaviour {
         {
             timer -= Time.deltaTime;
         }
-        
+
     }
 
-    private void SeasonTriggerUnique ()
+    private void TriggerUnique()
     {
         Debug.Log("hoi");
     }
 
-    private void SeasonTrigger()
+    private void Trigger()
     {
         Debug.Log("hoi");
     }

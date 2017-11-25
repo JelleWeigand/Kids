@@ -732,6 +732,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 824869796}
+  - component: {fileID: 824869797}
   m_Layer: 0
   m_Name: ObjectTrigger
   m_TagString: Untagged
@@ -752,6 +753,22 @@ Transform:
   m_Father: {fileID: 973359469}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &824869797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 824869795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62f219fa938884d49b4836728645ec7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  positionObject: {fileID: 1745264714}
+  leftx: 10
+  rightx: 12
+  resetTimeSec: 5
+  isUnique: 0
 --- !u!1 &871648069
 GameObject:
   m_ObjectHideFlags: 0
@@ -1499,9 +1516,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1234938872}
-  - component: {fileID: 1234938873}
+  - component: {fileID: 1234938874}
   m_Layer: 0
-  m_Name: SummerTrigger
+  m_Name: SeasonTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1520,7 +1537,7 @@ Transform:
   m_Father: {fileID: 973359469}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1234938873
+--- !u!114 &1234938874
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -1528,10 +1545,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1234938871}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc714592b2b2ea64db0ba78a84123125, type: 3}
+  m_Script: {fileID: 11500000, guid: eea3990946332be4495343ea5763b1e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zeroLayer: {fileID: 1745264714}
+  positionObject: {fileID: 1745264714}
   leftBorder: {fileID: 1224509876}
   rightBorder: {fileID: 807508346}
   resetTimeSec: 5
