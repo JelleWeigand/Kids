@@ -1894,7 +1894,7 @@ GameObject:
   m_Layer: 0
   m_Name: PositionObject
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 8220585740371884164, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -2092,8 +2092,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   layers: []
-  slideSlope: 2
+  moveSpeed: 0
+  slideSlope: 300
   borderBounce: 2
+  scrollMargin: 300
+  marginSpringiness: 10000
+  marginPressure: 0
+  moveSpeedMargin: 10
 --- !u!4 &2011932322
 Transform:
   m_ObjectHideFlags: 0

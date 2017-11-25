@@ -8,7 +8,7 @@ public class Touchtest : MonoBehaviour {
     private double moveTrashhold = 20;
     public Object[] layers;
     private float screenRatio;
-    private float moveSpeed;
+    public float moveSpeed;
     private float dmove;
     private float borderLeft;
     private float borderRight;
@@ -17,6 +17,10 @@ public class Touchtest : MonoBehaviour {
     public float borderBounce;
     private Ray ray;
     private RaycastHit2D hit;
+    public float scrollMargin;
+    public float marginSpringiness;
+    public float marginPressure;
+    public float moveSpeedMargin;
     Vector2 moveDistance;
     // Use this for initialization
     void Start() {
@@ -59,7 +63,7 @@ public class Touchtest : MonoBehaviour {
 
                 }
                 else {
-                    moveSpeed = Input.GetTouch(0).deltaPosition.x/Time.deltaTime;
+                    moveSpeed = (Input.GetTouch(0).deltaPosition.x/Time.deltaTime + moveDistance.x)/2;
                 }
             }
 
@@ -69,7 +73,37 @@ public class Touchtest : MonoBehaviour {
                 }
             }
         }
+        else {
+            if (Mathf.Abs(moveSpeed)>moveSpeedMargin) {
+                moveSpeed -= Mathf.Sign(moveSpeed)*slideSlope*Time.deltaTime;
+                moveSpeed = Mathf.Clamp(baseLayer.transform.position.x+moveSpeed,borderLeft-scrollMargin,borderRight+scrollMargin) - baseLayer.transform.position.x;
+            }
+            else {
+                moveSpeed = 0;
+            }
 
+            if(baseLayer.transform.position.x>borderRight) {
+                moveSpeed = 0;
+                marginPressure = Mathf.Clamp(-(Mathf.Lerp(0.0f,1.0f,Mathf.Abs((Mathf.Abs(baseLayer.transform.position.x) - borderRight) / scrollMargin)) * marginSpringiness * Time.deltaTime),borderRight - baseLayer.transform.position.x,0);
+            }
+            else if(baseLayer.transform.position.x<borderLeft) {
+                moveSpeed = 0;
+                marginPressure = Mathf.Clamp((Mathf.Lerp(0.0f,1.0f,Mathf.Abs((Mathf.Abs(baseLayer.transform.position.x) - borderLeft) / scrollMargin)) * marginSpringiness * Time.deltaTime),0,borderLeft - baseLayer.transform.position.x);
+                Debug.Log(Time.deltaTime);
+            }
+            else {
+                marginPressure = 0;
+            }
+
+
+            foreach(GameObject layer in layers) {
+                layer.transform.Translate((moveSpeed*Time.deltaTime-marginPressure)*screenRatio/layer.transform.position.z,0,0);
+            }
+
+
+
+
+        }
 
 
 
@@ -116,6 +150,6 @@ public class Touchtest : MonoBehaviour {
         //foreach(GameObject layer in layers) {
         //    layer.transform.Translate(moveSpeed*Time.deltaTime*screenRatio/layer.transform.position.z,0,0);
         //}
-        
+
     }
 }
