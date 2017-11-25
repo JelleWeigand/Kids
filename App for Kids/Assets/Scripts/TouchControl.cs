@@ -4,10 +4,19 @@ using UnityEngine;
 
 public class TouchControl : MonoBehaviour {
 
+    public class Layers {
+        public GameObject l;
+        public float depth;
+        public Layers (GameObject lt, float deptht) {
+            depth = deptht;
+            l = lt;
+        }
+    }
+
     //Private Variables
     private Vector2 initialTap;
     private double moveTrashhold = 20;
-    private Object[] layers;
+    private List<Layers> layers;
     private float screenRatio;
     private float moveSpeed;
     private float dmove;
@@ -27,16 +36,18 @@ public class TouchControl : MonoBehaviour {
     public float marginPressure;
     public float moveSpeedMargin;
     public float slideSlope;
+    public float slideSlopeExp;
 
 
-    
     // Use this for initialization
     void Start() {
         //Adding layers
-        layers = new Object[3];
-        layers[0] = baseLayer = GameObject.Find("PositionObject");
-        layers[1] = GameObject.Find("0Layer");
-        layers[2] = GameObject.Find("1Layer");
+        layers = new List<Layers>();
+        layers.Add(new Layers(GameObject.Find("PositionObject"),GameObject.Find("PositionObject").transform.position.z));
+        layers.Add(new Layers(GameObject.Find("0Layer"),GameObject.Find("0Layer").transform.position.z));
+        layers.Add(new Layers(GameObject.Find("1Layer"),GameObject.Find("1Layer").transform.position.z));
+        layers.Add(new Layers(GameObject.Find("BackgroundLayer"),10));
+        baseLayer = layers[0].l;
 
         //Initializing Variables
         borderLeft = GameObject.Find("BorderLeft").transform.position.x;
@@ -47,7 +58,6 @@ public class TouchControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
- 
         if(Input.touchCount > 0){
 
             //On first finger start of touch
@@ -63,6 +73,8 @@ public class TouchControl : MonoBehaviour {
 
                 //If the touch was a tap
                 if(touchTap) {
+
+
                 }
 
                 //If the touch was not a tap
@@ -80,8 +92,8 @@ public class TouchControl : MonoBehaviour {
                 }
 
                 //Move the world
-                foreach(GameObject layer in layers) {
-                layer.transform.Translate(moveDistance.x*screenRatio/layer.transform.position.z,0,0);
+                foreach(Layers layer in layers) {
+                layer.l.transform.Translate(moveDistance.x*screenRatio/layer.depth,0,0);
                 }
             }
         }
@@ -90,8 +102,8 @@ public class TouchControl : MonoBehaviour {
             //if the screen is gliding
             if (moveSpeed != 0) {
                 moveSpeedOld = moveSpeed;
-                moveSpeed -= Mathf.Sign(moveSpeed)*slideSlope*Time.deltaTime;
-                moveSpeed = Mathf.Clamp(baseLayer.transform.position.x+moveSpeed,borderLeft-scrollMargin,borderRight+scrollMargin) - baseLayer.transform.position.x;
+                moveSpeed -= (Mathf.Sign(moveSpeed)*slideSlope+moveSpeed*slideSlopeExp)*Time.deltaTime;
+                moveSpeed = (Mathf.Clamp(baseLayer.transform.position.x+moveSpeed,(borderLeft-scrollMargin)/screenRatio,(borderRight+scrollMargin)/screenRatio) - baseLayer.transform.position.x);
                 if(Mathf.Sign(moveSpeed)*Mathf.Sign(moveSpeedOld)<0) {
                     moveSpeed = 0;
                 }
@@ -112,8 +124,8 @@ public class TouchControl : MonoBehaviour {
             }
 
             //move the layers
-            foreach(GameObject layer in layers) {
-                layer.transform.Translate((moveSpeed*Time.deltaTime-marginPressure)*screenRatio/layer.transform.position.z,0,0);
+            foreach(Layers layer in layers) {
+                layer.l.transform.Translate((moveSpeed*Time.deltaTime-marginPressure)*screenRatio/layer.depth,0,0);
             }
         } 
     }
