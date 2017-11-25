@@ -21,6 +21,8 @@ public class Touchtest : MonoBehaviour {
     public float marginSpringiness;
     public float marginPressure;
     public float moveSpeedMargin;
+    public float moveSpeedExp;
+    private float moveSpeedOld;
     Vector2 moveDistance;
     // Use this for initialization
     void Start() {
@@ -38,7 +40,7 @@ public class Touchtest : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         if(Input.touchCount > 0){
-
+            Touch touch = Input.GetTouch(0);
             if(Input.GetTouch(0).phase == TouchPhase.Began) {
                 touchTap = true;
                 initialTap = Input.GetTouch(0).position;
@@ -63,7 +65,7 @@ public class Touchtest : MonoBehaviour {
 
                 }
                 else {
-                    moveSpeed = (Input.GetTouch(0).deltaPosition.x/Time.deltaTime + moveDistance.x)/2;
+                    moveSpeed = (Input.GetTouch(0).deltaPosition.x)/Time.deltaTime;
                 }
             }
 
@@ -75,13 +77,16 @@ public class Touchtest : MonoBehaviour {
         }
         else {
             if (Mathf.Abs(moveSpeed)>moveSpeedMargin) {
-                moveSpeed -= Mathf.Sign(moveSpeed)*slideSlope*Time.deltaTime;
-                moveSpeed = Mathf.Clamp(baseLayer.transform.position.x+moveSpeed,borderLeft-scrollMargin,borderRight+scrollMargin) - baseLayer.transform.position.x;
+                moveSpeedOld = moveSpeed;
+                moveSpeed -= (Mathf.Sign(moveSpeed)*slideSlope+moveSpeed*moveSpeedExp)*Time.deltaTime;
+                moveSpeed = Mathf.Clamp(moveSpeed,(-baseLayer.transform.position.x+borderLeft-scrollMargin)/screenRatio,(borderRight+scrollMargin-baseLayer.transform.position.x)/screenRatio);
+                if(Mathf.Sign(moveSpeed)*Mathf.Sign(moveSpeedOld) < 0) {
+                    moveSpeed = 0;
+                }
             }
             else {
                 moveSpeed = 0;
             }
-
             if(baseLayer.transform.position.x>borderRight) {
                 moveSpeed = 0;
                 marginPressure = Mathf.Clamp(-(Mathf.Lerp(0.0f,1.0f,Mathf.Abs((Mathf.Abs(baseLayer.transform.position.x) - borderRight) / scrollMargin)) * marginSpringiness * Time.deltaTime),borderRight - baseLayer.transform.position.x,0);
@@ -89,7 +94,6 @@ public class Touchtest : MonoBehaviour {
             else if(baseLayer.transform.position.x<borderLeft) {
                 moveSpeed = 0;
                 marginPressure = Mathf.Clamp((Mathf.Lerp(0.0f,1.0f,Mathf.Abs((Mathf.Abs(baseLayer.transform.position.x) - borderLeft) / scrollMargin)) * marginSpringiness * Time.deltaTime),0,borderLeft - baseLayer.transform.position.x);
-                Debug.Log(Time.deltaTime);
             }
             else {
                 marginPressure = 0;
