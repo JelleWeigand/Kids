@@ -707,7 +707,7 @@ GameObject:
   m_Layer: 0
   m_Name: BorderAutumn
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -3701561207968579530, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1204,7 +1204,7 @@ GameObject:
   m_Layer: 0
   m_Name: BorderWinter
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -3701561207968579530, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1491,7 +1491,7 @@ GameObject:
   m_Layer: 0
   m_Name: BorderSummer
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -3701561207968579530, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1520,7 +1520,7 @@ GameObject:
   m_Layer: 0
   m_Name: SeasonTrigger
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -1577725955494882426, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -2327,15 +2327,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7953afe1f8dd174ab59f0ebcadc1321, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  layers: []
-  moveSpeed: 0
-  slideSlope: 800
-  borderBounce: 2
   scrollMargin: 300
   marginSpringiness: 10000
   marginPressure: 0
   moveSpeedMargin: 10
-  moveSpeedExp: 1.5
+  slideSlope: 800
 --- !u!4 &2011932322
 Transform:
   m_ObjectHideFlags: 0
