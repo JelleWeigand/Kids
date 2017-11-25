@@ -10,6 +10,9 @@ public class ObjectTrigger : MonoBehaviour
     public float rightx;
     public float resetTimeSec;
     public bool isUnique;
+    public bool isSound;
+    public AudioSource sound;
+
 
     private float timer;
     private bool insideSeason;
@@ -42,7 +45,7 @@ public class ObjectTrigger : MonoBehaviour
         if (insideSeason && timer <= 0 && !isTriggered && isUnique)
         {
             timer = resetTimeSec;
-            TriggerUnique();
+            Trigger();
             isTriggered = true;
         }
         // triggers all the triggers that happen every resetTime
@@ -60,14 +63,12 @@ public class ObjectTrigger : MonoBehaviour
 
     }
 
-    private void TriggerUnique()
-    {
-        
-    }
-
     private void Trigger()
     {
-        Debug.Log("Object got triggered, run bro");
+        if (isSound)
+        {
+            sound.Play();
+        } 
     }
 }
 
