@@ -20,9 +20,10 @@ public class Touchtest : MonoBehaviour {
     Vector2 moveDistance;
     // Use this for initialization
     void Start() {
-        layers = new Object[2];
-        layers[0] = baseLayer = GameObject.Find("0Layer");
-        layers[1] = GameObject.Find("1Layer");
+        layers = new Object[3];
+        layers[0] = baseLayer = GameObject.Find("PositionObject");
+        layers[1] = GameObject.Find("0Layer");
+        layers[2] = GameObject.Find("1Layer");
         borderLeft = GameObject.Find("BorderLeft").transform.position.x;
         borderRight = GameObject.Find("BorderRight").transform.position.x;
         screenRatio = 2*Camera.main.orthographicSize/Screen.height;
@@ -68,6 +69,9 @@ public class Touchtest : MonoBehaviour {
                 }
             }
         }
+
+
+
 
         //if(moveSpeed != 0) {
         //    dmove = Time.deltaTime*Screen.height*slideSlope;
