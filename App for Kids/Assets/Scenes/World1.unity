@@ -227,10 +227,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8a667c70ba07fe44820b4bebc374e59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  curve: 0
-  height: 0
-  bump1: 0
-  bump2: 0
+  curve: 2
+  height: 5
+  bump1: 2
+  bump2: 1
+  tranTime: 3
+  gravity: 50
 --- !u!58 &43783334
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -281,7 +283,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 25ac1a546ef69c3488f285ce51bd67b6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.90344834, g: 1, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
