@@ -16,7 +16,7 @@ public class TouchControl : MonoBehaviour {
     //Private Variables
     private Vector2 initialTap;
     private double moveTrashhold = 20;
-    private List<Layers> layers;
+    public static List<Layers> layers;
     private float screenRatio;
     private float moveSpeed;
     private float dmove;
@@ -49,6 +49,21 @@ public class TouchControl : MonoBehaviour {
         layers.Add(new Layers(GameObject.Find("BackgroundLayer"),10));
         layers.Add(new Layers(GameObject.Find("SunLayer"),10));
         baseLayer = layers[0].l;
+
+
+        foreach(Layers l in layers) {
+            foreach(Transform child in l.l.transform) {
+                if(child.name[child.name.Length -1] != 'X') {
+                    Vector3 pos = child.transform.position;
+                    pos[0] = pos[0] / l.depth;
+                    child.transform.position = pos;
+                }
+            }
+        }
+        
+
+
+
 
         //Initializing Variables
         borderLeft = GameObject.Find("BorderLeft").transform.position.x;

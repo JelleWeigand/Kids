@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SunScript : MonoBehaviour {
+public class SunScript:MonoBehaviour {
     //private variables
     private float left;
     private float right;
     private float x;
-    private GameObject  position;
+    private GameObject position;
     private float fac;
     private float v;
     private float vend;
@@ -26,7 +26,7 @@ public class SunScript : MonoBehaviour {
     public static float startTimeSun;
     public bool sun;
     // Use this for initialization
-    void Start () {
+    void Start() {
         left = GameObject.Find("BorderLeft").transform.position.x;
         right = GameObject.Find("BorderRight").transform.position.x;
         position = GameObject.Find("PositionObject");
@@ -43,12 +43,11 @@ public class SunScript : MonoBehaviour {
             startTimeSun = Time.time;
         }
     }
-    
+
     // Update is called once per frame
-    void Update () {
-        Debug.Log(playSun);
+    void Update() {
         if(playSun) {
-            if(night ^ sun) {
+            if(!(night ^ sun)) {
                 leap = (Time.time-startTimeSun)*v-0.5f*gravity*Mathf.Pow((Time.time-startTimeSun),2f);
                 if(Time.time-startTimeSun > tranTime) {
                     playSun = false;

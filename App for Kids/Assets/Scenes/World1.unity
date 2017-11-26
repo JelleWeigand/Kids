@@ -210,7 +210,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 43783331}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 11, y: 5.5, z: 0}
+  m_LocalPosition: {x: 11.1, y: 5.81, z: 0}
   m_LocalScale: {x: 0.74035674, y: 0.74035674, z: 0.74035674}
   m_Children: []
   m_Father: {fileID: 154910601}
@@ -303,7 +303,7 @@ GameObject:
   - component: {fileID: 45602955}
   - component: {fileID: 45602956}
   m_Layer: 0
-  m_Name: BackgroundSummer
+  m_Name: BackgroundSummerX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -467,7 +467,7 @@ Transform:
   - {fileID: 43783332}
   - {fileID: 1767367414}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &165103943
 GameObject:
@@ -654,7 +654,7 @@ GameObject:
   - component: {fileID: 349285286}
   - component: {fileID: 349285287}
   m_Layer: 0
-  m_Name: BackgroundSpring
+  m_Name: BackgroundSpringX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -973,7 +973,7 @@ GameObject:
   - component: {fileID: 405485279}
   - component: {fileID: 405485280}
   m_Layer: 0
-  m_Name: BackgroundAutumn
+  m_Name: BackgroundAutumnX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1046,7 +1046,7 @@ GameObject:
   - component: {fileID: 661845556}
   - component: {fileID: 661845557}
   m_Layer: 0
-  m_Name: BackgroundWinter
+  m_Name: BackgroundWinterX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1618,7 +1618,7 @@ Transform:
   - {fileID: 1234938872}
   - {fileID: 824869796}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &973900063
 GameObject:
@@ -1797,7 +1797,7 @@ Transform:
   - {fileID: 661845556}
   - {fileID: 671903102}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1071789209
 GameObject:
@@ -2086,7 +2086,7 @@ Transform:
   - {fileID: 359806283}
   - {fileID: 293999064}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1210519769
 GameObject:
@@ -2531,7 +2531,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1578927172}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 140.44, y: -5.9, z: 0}
+  m_LocalPosition: {x: 158.8, y: -5.6, z: 0}
   m_LocalScale: {x: 3.2253745, y: 5.50482, z: 1}
   m_Children: []
   m_Father: {fileID: 1591050652}
@@ -2619,7 +2619,7 @@ Transform:
   - {fileID: 1658025094}
   - {fileID: 1578927173}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1595264701
 GameObject:
@@ -2798,7 +2798,7 @@ Transform:
   - {fileID: 807508347}
   - {fileID: 1100129840}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1745264714
 GameObject:
@@ -3133,7 +3133,35 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2026477068
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 2026477069}
+  m_Layer: 0
+  m_Name: NightController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2026477069
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2026477068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 34.25545, y: 8.6781645, z: 11.066672}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2035661307
 GameObject:
