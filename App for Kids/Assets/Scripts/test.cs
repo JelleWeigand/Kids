@@ -13,6 +13,9 @@ public class test : MonoBehaviour {
     private float screenRatio;
     private double moveTrashhold = 20;
     private Vector2 touchPos = new Vector2(0,0);
+    private bool firsthit = false;
+    private float timer = 0f;
+    private float angle;
 
     // start
     void Start()
@@ -37,12 +40,13 @@ public class test : MonoBehaviour {
                 initialTap = Input.GetTouch(0).position;
                 moveSpeed = 0;
                 moveDistance = new Vector2(0, 0);
+                firsthit = false;
             }
 
             //On the end of the first touch
             if (Input.GetTouch(0).phase == TouchPhase.Ended)
             {
-
+                firsthit = false;
                 //If the touch was a tap
                 if (touchTap)
                 {
@@ -58,6 +62,23 @@ public class test : MonoBehaviour {
             //If the touch is moving
             if (Input.GetTouch(0).phase == TouchPhase.Moved)
             {
+                if (!firsthit)
+                {
+                    timer += Time.deltaTime;
+                }
+                
+                if (timer >= 0.05f)
+                {
+                    firsthit = true;
+                    timer = 0f;
+                    angle = Mathf.Atan2(Input.GetTouch(0).position.y - initialTap.y, Input.GetTouch(0).position.x - initialTap.x) *180/Mathf.PI;
+
+                    // Debug.Log(angle);
+                    Quaternion target = Quaternion.Euler(0f, 0f, angle-90);
+                    
+                    gameobject.transform.rotation = target;
+                }
+                
                 //Check if it is out of the margin
                 if ((Input.GetTouch(0).position - initialTap).magnitude > moveTrashhold)
                 {
