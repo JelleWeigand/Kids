@@ -47,6 +47,7 @@ public class TouchControl : MonoBehaviour {
         layers.Add(new Layers(GameObject.Find("0Layer"),GameObject.Find("0Layer").transform.position.z));
         layers.Add(new Layers(GameObject.Find("1Layer"),GameObject.Find("1Layer").transform.position.z));
         layers.Add(new Layers(GameObject.Find("BackgroundLayer"),10));
+        layers.Add(new Layers(GameObject.Find("SunLayer"),10));
         baseLayer = layers[0].l;
 
         //Initializing Variables
