@@ -30,11 +30,12 @@ public class BackgroundController : MonoBehaviour {
     // Use this for initialization
     void Start() {
         backgrounds = new List<BG>();
-        backgrounds.Add(new BG(GameObject.Find("BackgroundSpring"), GameObject.Find("BorderSummer").transform.position.x,GameObject.Find("BackgroundSpring").GetComponent<SpriteRenderer>()));
-        backgrounds.Add(new BG(GameObject.Find("BackgroundSummer"), GameObject.Find("BorderAutumn").transform.position.x,GameObject.Find("BackgroundSummer").GetComponent<SpriteRenderer>()));
-        backgrounds.Add(new BG(GameObject.Find("BackgroundAutumn"), GameObject.Find("BorderWinter").transform.position.x,GameObject.Find("BackgroundAutumn").GetComponent<SpriteRenderer>()));
+        backgrounds.Add(new BG(GameObject.Find("BackgroundSpringX"), GameObject.Find("BorderSummer").transform.position.x,GameObject.Find("BackgroundSpringX").GetComponent<SpriteRenderer>()));
+        backgrounds.Add(new BG(GameObject.Find("BackgroundSummerX"), GameObject.Find("BorderAutumn").transform.position.x,GameObject.Find("BackgroundSummerX").GetComponent<SpriteRenderer>()));
+        backgrounds.Add(new BG(GameObject.Find("BackgroundAutumnX"), GameObject.Find("BorderWinter").transform.position.x,GameObject.Find("BackgroundAutumnX").GetComponent<SpriteRenderer>()));
         position = GameObject.Find("PositionObject");
         SR = new SpriteRenderer();
+        
     }
 	// Update is called once per frame
 	void Update () {
