@@ -16,8 +16,6 @@ public class TouchControl : MonoBehaviour {
     //Private Variables
     private Vector2 initialTap;
     private double moveTrashhold = 20;
-    public static List<Layers> layers;
-    private float screenRatio;
     private float moveSpeed;
     private float dmove;
     private float borderLeft;
@@ -37,7 +35,8 @@ public class TouchControl : MonoBehaviour {
     public float moveSpeedMargin;
     public float slideSlope;
     public float slideSlopeExp;
-
+    public static List<Layers> layers;
+    public static float screenRatio;
 
     // Use this for initialization
     void Start() {
@@ -60,10 +59,6 @@ public class TouchControl : MonoBehaviour {
                 }
             }
         }
-
-
-
-
 
         //Initializing Variables
         borderLeft = GameObject.Find("BorderLeft").transform.position.x;

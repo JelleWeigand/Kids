@@ -20,6 +20,13 @@ public class ClothesController : MonoBehaviour {
     private List<Clothes> clothes;
     private List<Vector2> tempList;
     private string tempName;
+
+
+    //public variables
+    public static bool hold = false;
+    public static GameObject holdObject;
+    public static bool snap = false;
+    public static GameObject snapObject;
 	// Use this for initialization
 	void Start () {
         clothes = new List<Clothes>();
@@ -28,8 +35,8 @@ public class ClothesController : MonoBehaviour {
         tempName = "Clothes1";
         GameObject mainC = GameObject.Find(tempName);
         tempList = new List<Vector2>();
-        foreach(Transform child in mainC) {
-            tempList.Add();
+        foreach(Transform child in mainC.transform) {
+            tempList.Add(new Vector2(child.transform.position.x, child.transform.position.y));
         }
         
         
@@ -37,9 +44,26 @@ public class ClothesController : MonoBehaviour {
 
 		
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+
+
+
+
+    // Update is called once per frame
+    void LateUpdate () {
+        if(Input.touchCount != 0 && hold) {
+            if (snap) {
+                holdObject.transform.position = new Vector3(snapObject.transform.position.x, snapObject.transform.position.y, holdObject.transform.position.z);
+                holdObject.transform.rotation = snapObject.transform.rotation;
+            }
+            else {
+                holdObject.transform.position = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
+            }
+            
+        }
+        snap = false;
 	}
+
+    void OnMouseUp() {
+        hold = false;    
+    }
 }
