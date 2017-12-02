@@ -94,7 +94,7 @@ public class TouchControl : MonoBehaviour {
 
                 //Move the world
                 foreach(Layers layer in layers) {
-                layer.l.transform.Translate(moveDistance.x*screenRatio/layer.depth,0,0);
+                    layer.l.transform.Translate(moveDistance.x*screenRatio/layer.depth,0,0);
                 }
             }
         }
