@@ -8,9 +8,8 @@ public class MagnaticLeavesController : MonoBehaviour
     public GameObject[] leaves = new GameObject[7];
     public GameObject basket;
     public float radius;
+    public int maxCarry;
 
-
-    private bool touchTap;
     private Vector2 initialTap;
     private float screenRatio;
     private Vector2 touchPos = new Vector2(0, 0);
@@ -19,27 +18,30 @@ public class MagnaticLeavesController : MonoBehaviour
     private float[] offsetx = new float[7];
     private float[] offsety = new float[7];
     private bool[] isFollow = new bool[7];
+    private bool[] inBasket = new bool[7];
+    private int followCount = 0;
     private LeaveController[] leaveController = new LeaveController[7];
+    private OverlapScript overlapScript;
     private Collider2D[] colliders;
+
 
     // start
     void Start()
     {
+        overlapScript = basket.GetComponent<OverlapScript>();
+
         for (int i = 0; i < leaves.Length; i++)
         {
             leaveController[i] = leaves[i].GetComponent<LeaveController>();
             isFollow[i] = false;
+            inBasket[i] = false;
         }
+
         screenRatio = 2 * Camera.main.orthographicSize / Screen.height;
     }
 
 
     // Update is called once per frame
-    void OnMouseDown()
-    {
-        objectHit = true;
-    }
-
     void Update()
     {
         if (Input.touchCount > 0)
@@ -49,7 +51,6 @@ public class MagnaticLeavesController : MonoBehaviour
             //On first finger start of touch
             if (Input.GetTouch(0).phase == TouchPhase.Began)
             {
-                touchTap = true;
                 initialTap = Input.GetTouch(0).position;
 
                 colliders = Physics2D.OverlapCircleAll(new Vector2(touchPos.x, touchPos.y), radius);
@@ -57,31 +58,44 @@ public class MagnaticLeavesController : MonoBehaviour
                 for (int i = 0; i < colliders.Length; i++)
                 {
                     int j = (colliders[i].GetComponent<LeaveController>()).ID;
-                    
-                    offsetx[j] = (leaves[j].gameObject.transform.position.x - touchPos.x);
-                    offsety[j] = (leaves[j].gameObject.transform.position.y - touchPos.y);
-                    isFollow[j] = true;
+
+                    if (!inBasket[j])
+                    {
+                        offsetx[j] = (leaves[j].gameObject.transform.position.x - touchPos.x);
+                        offsety[j] = (leaves[j].gameObject.transform.position.y - touchPos.y);
+                        if (followCount < maxCarry)
+                        {
+                            isFollow[j] = true;
+                            followCount++;
+                        }
+                    }
                 }
             }
 
             //On the end of the first touch
             if (Input.GetTouch(0).phase == TouchPhase.Ended)
             {
-                //If the touch was a tap
-                if (touchTap)
-                {
-                }
-
-                //If the touch was not a tap
-                else
-                {
-                }
-
+                
                 for (int i = 0; i < colliders.Length; i++)
                 {
-                    int j = (colliders[i].GetComponent<LeaveController>()).ID;
-                    isFollow[j] = false;
-                }
+                        int j = (colliders[i].GetComponent<LeaveController>()).ID;
+                        isFollow[j] = false;
+                        followCount = 0;
+                    if (!inBasket[j])
+                    {
+                        if (overlapScript.index[j])
+                        {
+                            inBasket[j] = true;
+                            Debug.Log("disable");
+                            DisableRagdoll((leaves[j].GetComponent<Rigidbody2D>()));
+                        } else
+                        {
+                            EnableRagdoll((leaves[j].GetComponent<Rigidbody2D>()));
+                            Debug.Log("disable");
+                        }
+
+                    }   
+                }       
             }
 
             //If the touch is moving
@@ -92,18 +106,69 @@ public class MagnaticLeavesController : MonoBehaviour
                 for (int i = 0; i < colliders.Length; i++)
                 {
                     int j = (colliders[i].GetComponent<LeaveController>()).ID;
-
-                    if (isFollow[j] == false)
+                    DisableRagdoll((leaves[j].GetComponent<Rigidbody2D>()));
+                    if (!inBasket[j])
+                    {
+                        if (isFollow[j] == false)
                         {
                             offsetx[j] = (leaves[j].gameObject.transform.position.x - touchPos.x);
                             offsety[j] = (leaves[j].gameObject.transform.position.y - touchPos.y);
-                            Debug.Log(j);
-                            isFollow[j] = true;
+                            if (followCount < maxCarry)
+                            {
+                                isFollow[j] = true;
+                                followCount++;
+                            }
                         }
-                    
-                    leaves[j].transform.position = new Vector3(touchPos.x + offsetx[j]/2, touchPos.y + offsety[j]/2, 0);       
+                    }
+                                    
                 }
+
+                for (int i = 0; i < leaves.Length; i++)
+                {
+                    if (!inBasket[i])
+                    {
+                        if (isFollow[i])
+                        {
+                            leaves[i].transform.position = new Vector3((touchPos.x + offsetx[i]), (touchPos.y + offsety[i]), 1);
+                        }
+                    }
+                        
+                }
+
             }
         }
     }
+
+    void FixedUpdate()
+    {
+        for(int i = 0; i < leaves.Length; i++)
+        {
+            if (inBasket[i] == true)
+            {
+                MoveToBasket(i);
+            }
+        }
+        
+    }
+    void MoveToBasket(int i)
+    {
+        if (leaves[i].transform.position.y > -10)
+        {
+            leaves[i].transform.Translate(Vector3.down *14 * Time.deltaTime);
+        }
+        
+    }
+
+    void DisableRagdoll(Rigidbody2D rb)
+    {
+        rb.isKinematic = true;
+       
+    }
+
+    void EnableRagdoll(Rigidbody2D rb)
+    {
+        rb.isKinematic = false;
+        // Debug.Log("enable");
+    }
+
 }

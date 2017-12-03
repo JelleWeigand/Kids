@@ -4,23 +4,22 @@ using UnityEngine;
 
 public class LeaveController : MonoBehaviour {
 
-    public bool leaveHit = false;
+
     public int ID;
+    private Rigidbody2D rb;
+    private Vector2 vel;
     // Use this for initialization
-	void Start () {
-		
+    void Start () {
+        rb = GetComponent<Rigidbody2D>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
-    void OnMouseDown()
-    {
-        leaveHit = true;
+        vel = rb.velocity;
+        if(vel.y != 0)
+        {
+
+        }
     }
-    void OnMouseUp()
-    {
-        leaveHit = false;
-    }
+ 
 }
