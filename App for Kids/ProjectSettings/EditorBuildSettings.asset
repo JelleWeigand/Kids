@@ -11,3 +11,6 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/SnowMan.unity
     guid: 4bb84ffdac864db4a9761a8694ba16f0
+  - enabled: 0
+    path: Assets/Scenes/MagnaticLeaves.unity
+    guid: 7ea023e9958530e43b5c3dabcf17e102
