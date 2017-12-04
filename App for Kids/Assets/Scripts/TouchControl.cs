@@ -45,6 +45,8 @@ public class TouchControl : MonoBehaviour {
         layers.Add(new Layers(GameObject.Find("PositionObject"), GameObject.Find("PositionObject").transform.position.z));
         layers.Add(new Layers(GameObject.Find("0Layer"), GameObject.Find("0Layer").transform.position.z));
         layers.Add(new Layers(GameObject.Find("1Layer"), GameObject.Find("1Layer").transform.position.z));
+        layers.Add(new Layers(GameObject.Find("2Layer"), GameObject.Find("2Layer").transform.position.z));
+        layers.Add(new Layers(GameObject.Find("3Layer"), GameObject.Find("3Layer").transform.position.z));
         layers.Add(new Layers(GameObject.Find("BackgroundLayer"), 10));
         layers.Add(new Layers(GameObject.Find("SunLayer"), 10));
         baseLayer = layers[0].l;
@@ -136,7 +138,7 @@ public class TouchControl : MonoBehaviour {
 
             //move the layers
             foreach (Layers layer in layers) {
-                layer.l.transform.Translate((moveSpeed * Time.deltaTime - marginPressure) * screenRatio / layer.depth, 0, 0);
+                layer.l.transform.Translate(((moveSpeed * Time.deltaTime - marginPressure) * screenRatio / layer.depth), 0, 0);
             }
         }
     }
