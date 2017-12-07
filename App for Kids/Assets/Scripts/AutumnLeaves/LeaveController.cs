@@ -33,11 +33,12 @@ public class LeaveController : MonoBehaviour {
             }
             time = time + Time.deltaTime;
             y = transform.position.y;
-            xFunction = x + Mathf.Sin(time * 2.5f);
+            xFunction = Mathf.Sin(time * 2.5f)+y/3;
 
             if (y > threshold && !(y < -3.2 && x < basket.position.x + 2 && x > basket.position.x - 2))
             {
-                transform.position = new Vector3(xFunction, y - 0.03f, z);
+                transform.position = new Vector3(x + xFunction, y - 0.03f, z);
+                transform.Rotate(Vector3.forward *50*xFunction* Time.deltaTime);
             }
         } else
         {
