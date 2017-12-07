@@ -17,6 +17,7 @@ public class LeavesManager : MonoBehaviour {
     private GameObject[] leaves = new GameObject[11];
     private Vector2[] offset = new Vector2[11];
     private bool[] leaveIsTouch = new bool[11];
+    private Rigidbody2D[] endRigidbody = new Rigidbody2D[11];
     private int isTouchCount = 0;
     private Vector2 initialTap;
     private Vector2 touchPos = new Vector2(0, 0);
@@ -26,7 +27,8 @@ public class LeavesManager : MonoBehaviour {
     private float timer = 0f;
     // Use this for initialization
     void Start () {
-        for (int i = 0; i< spawnPoints.Length; i++)
+        
+            for (int i = 0; i< spawnPoints.Length; i++)
         {
             if (i % 3 == 0)
             {
@@ -49,14 +51,28 @@ public class LeavesManager : MonoBehaviour {
     {
         if (score >= 11)
         {
-            
+            if (timer == 0f)
+            {
+                for (int i = 0; i < endPoints.Length; i++)
+                {
+                    endRigidbody[i] = endPoints[i].GetComponent<Rigidbody2D>();
+                }
+            }
             if (timer > 6f)
             {
                 Application.LoadLevel("World1");
             }
             timer += Time.deltaTime;
 
-            endBall.transform.Translate(new Vector3(-1*timer, 1, 0) *5* Time.deltaTime);
+            endBall.transform.Translate(new Vector3(-1, 1, 0) *5* Time.deltaTime);
+            for (int i = 0; i < leaves.Length; i++)
+            {
+                if (endRigidbody[i].velocity.x > 0f)
+                {
+                    endPoints[i].transform.Rotate(Vector3.forward * 50 * Time.deltaTime);
+                }
+            }
+                
 
         }
 
