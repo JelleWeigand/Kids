@@ -6,6 +6,7 @@ public class LeaveController : MonoBehaviour {
 
     public float threshold = -4.5f;
     public float fallspeed;
+    private Transform basket;
     public bool fall = true;
 
     private float xFunction;
@@ -17,6 +18,7 @@ public class LeaveController : MonoBehaviour {
     void Start () {
         x = transform.position.x;
         z = transform.position.z;
+        basket = (GameObject.Find("Basket")).transform;
     }
 	
 	// Update is called once per frame
@@ -33,7 +35,7 @@ public class LeaveController : MonoBehaviour {
             y = transform.position.y;
             xFunction = x + Mathf.Sin(time * 2.5f);
 
-            if (y > threshold)
+            if (y > threshold && !(y < -3.2 && x < basket.position.x + 2 && x > basket.position.x - 2))
             {
                 transform.position = new Vector3(xFunction, y - 0.03f, z);
             }

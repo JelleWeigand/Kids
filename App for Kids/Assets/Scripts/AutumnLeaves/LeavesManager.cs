@@ -4,13 +4,18 @@ using UnityEngine;
 
 public class LeavesManager : MonoBehaviour {
 
-    public GameObject leave;
+    public GameObject leave1;
+    public GameObject leave2;
+    public GameObject leave3;
     public Transform[] spawnPoints;
+    public GameObject[] endPoints = new GameObject[11];
     public float radius;
     public Transform basket;
+    public int maxCarry = 1;
 
-    private GameObject[] leaves = new GameObject[5];
-    private bool[] leaveIsTouch = new bool[5];
+    private GameObject[] leaves = new GameObject[11];
+    private bool[] leaveIsTouch = new bool[11];
+    private int isTouchCount = 0;
     private Vector2 initialTap;
     private Vector2 touchPos = new Vector2(0, 0);
     private Collider2D[] colliders;
@@ -20,7 +25,18 @@ public class LeavesManager : MonoBehaviour {
     void Start () {
         for (int i = 0; i< spawnPoints.Length; i++)
         {
-            leaves[i] = Instantiate(leave, spawnPoints[i].position, spawnPoints[i].rotation);
+            if (i % 3 == 0)
+            {
+                leaves[i] = Instantiate(leave1, spawnPoints[i].position, spawnPoints[i].rotation);
+            }
+            if (i % 3 == 1)
+            {
+                leaves[i] = Instantiate(leave2, spawnPoints[i].position, spawnPoints[i].rotation);
+            }
+            if (i % 3 == 2)
+            {
+                leaves[i] = Instantiate(leave3, spawnPoints[i].position, spawnPoints[i].rotation);
+            }
             leaveIsTouch[i] = false;
         }
         
@@ -28,7 +44,8 @@ public class LeavesManager : MonoBehaviour {
 
     void Update()
     {
-        if (score >= 5)
+        Debug.Log(isTouchCount);
+        if (score >= 11)
         {
             Application.LoadLevel("World1");
         }
@@ -52,14 +69,17 @@ public class LeavesManager : MonoBehaviour {
                 {
                     colliders[i].gameObject.transform.position = new Vector3(touchPos.x, touchPos.y, 0f);
                 }
-                if (touchPos.x < basket.position.x + 5 && touchPos.x > basket.position.x - 5)
+                if (touchPos.x < basket.position.x + 3 && touchPos.x > basket.position.x - 2 &&
+                    touchPos.y < basket.position.y + 5)
                 {
                     for (int i = 0; i < leaves.Length; i++)
                     {
                         if (leaveIsTouch[i])
                         {
                             Destroy(leaves[i]);
+                            endPoints[score].SetActive(true);
                             score += 1;
+                           
                         }
 
                     }
@@ -68,7 +88,7 @@ public class LeavesManager : MonoBehaviour {
                 {
                     leaveIsTouch[i] = false;
                 }
-                
+                isTouchCount = 0;
 
             }
             //If the touch is moving
@@ -84,7 +104,12 @@ public class LeavesManager : MonoBehaviour {
                         {
                             if(colliders[i].gameObject == leaves[j])
                             {
-                                leaveIsTouch[j] = true;
+                                if (isTouchCount < maxCarry && !leaveIsTouch[j])
+                                {
+                                    leaveIsTouch[j] = true;
+                                    isTouchCount++;
+                                }
+                                
                             }
                         }
                     }
