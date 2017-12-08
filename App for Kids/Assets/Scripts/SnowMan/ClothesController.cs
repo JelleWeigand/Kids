@@ -13,7 +13,7 @@ public class ClothesController : MonoBehaviour {
     //public variables
     public float pickupScale;
     public static Dictionary<string,GameObject> clothes;
-    public float scale;
+    public static float scale;
      
 
 	// Use this for initialization
@@ -22,6 +22,7 @@ public class ClothesController : MonoBehaviour {
             { "hat",null },
             { "nose",null}
         };
+        scale = pickupScale;
     }
 
 
