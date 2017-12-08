@@ -41,13 +41,14 @@ public class TouchControl : MonoBehaviour {
     // Use this for initialization
     void Start() {
         //Adding layers
-        layers = new List<Layers>();
-        layers.Add(new Layers(GameObject.Find("PositionObject"), GameObject.Find("PositionObject").transform.position.z));
-        layers.Add(new Layers(GameObject.Find("0Layer"), GameObject.Find("0Layer").transform.position.z));
-        layers.Add(new Layers(GameObject.Find("1Layer"), GameObject.Find("1Layer").transform.position.z));
-        layers.Add(new Layers(GameObject.Find("2Layer"), GameObject.Find("2Layer").transform.position.z));
-        layers.Add(new Layers(GameObject.Find("BackgroundLayer"), 10));
-        layers.Add(new Layers(GameObject.Find("SunLayer"), 10));
+        layers = new List<Layers> {
+            new Layers(GameObject.Find("PositionObject"),GameObject.Find("PositionObject").transform.position.z),
+            new Layers(GameObject.Find("0Layer"),GameObject.Find("0Layer").transform.position.z),
+            new Layers(GameObject.Find("1Layer"),GameObject.Find("1Layer").transform.position.z),
+            new Layers(GameObject.Find("2Layer"),GameObject.Find("2Layer").transform.position.z),
+            new Layers(GameObject.Find("BackgroundLayer"),10),
+            new Layers(GameObject.Find("SunLayer"),10)
+        };
         baseLayer = layers[0].l;
 
 
