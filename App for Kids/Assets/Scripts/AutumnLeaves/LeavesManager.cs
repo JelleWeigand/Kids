@@ -7,7 +7,6 @@ public class LeavesManager : MonoBehaviour {
     public GameObject leave1;
     public GameObject leave2;
     public GameObject leave3;
-    public GameObject endBall;
     public Transform[] spawnPoints;
     public GameObject[] endPoints = new GameObject[11];
     public float radius;
@@ -18,15 +17,12 @@ public class LeavesManager : MonoBehaviour {
     private Vector2[] offset = new Vector2[11];
     private bool[] leaveIsTouch = new bool[11];
     private float[] r = new float[11];
-    private Rigidbody2D[] endRigidbody = new Rigidbody2D[11];
     private int isTouchCount = 0;
-    private Vector2 initialTap;
     private Vector2 touchPos = new Vector2(0, 0);
     private Collider2D[] colliders;
     private int colLen = 0;
     private int score = 0;
     private float timer = 0f;
-    private float timer2 = 0f;
     float xFunction = 0f;
     float yFunction = 0f; 
     // Use this for initialization
@@ -72,7 +68,6 @@ public class LeavesManager : MonoBehaviour {
             }
             timer += Time.deltaTime;
 
-            //endBall.transform.Translate(new Vector3(-1, 1, 0) *5* Time.deltaTime);
             if (timer > 1f)
             {
                 for (int i = 0; i < endPoints.Length; i++)
@@ -88,8 +83,6 @@ public class LeavesManager : MonoBehaviour {
                                 offset[i].y = yFunction;
                                 offset[i].x = xFunction;
                                 score -= 1;
-                                Debug.Log(timer);
-                                Debug.Log(score);
                             }
                             yFunction = offset[i].y - 3*(timer - 1.8f);
                             xFunction = offset[i].x - (timer - 1.8f)*(1.2f+0.4f*Mathf.Sin((timer - 1.8f)));
@@ -113,8 +106,6 @@ public class LeavesManager : MonoBehaviour {
             //initial touch
             if (Input.GetTouch(0).phase == TouchPhase.Began)
             {
-                initialTap = Input.GetTouch(0).position;
-
                 colliders = Physics2D.OverlapCircleAll(new Vector2(touchPos.x, touchPos.y), radius);
             }
 
