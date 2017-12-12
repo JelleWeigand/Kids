@@ -179,7 +179,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1026381359}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.52, y: -6.44, z: 0}
+  m_LocalPosition: {x: -6.52, y: -6.44, z: 10}
   m_LocalScale: {x: 5.849849, y: 4.673407, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -294,8 +294,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   centre: {fileID: 1878722749}
-  turningSpeed: 4
-  radius: 2
+  turningSpeed: 8
+  radius: 4
 --- !u!212 &1136727878
 SpriteRenderer:
   m_ObjectHideFlags: 0

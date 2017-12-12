@@ -4,27 +4,13 @@ using UnityEngine;
 
 public class LevelButton : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
-    void OnMouseDown()
-    {
-        
-    }
+    public string levelName;
 
     void OnMouseUpAsButton()
     {
         if (TouchControl.touchTap)
         {
-            Debug.Log("HALLO MART!");
-            Application.LoadLevel("MagneticLeaves");
+            Application.LoadLevel(levelName);
         }
     }
 }

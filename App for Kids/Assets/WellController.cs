@@ -11,9 +11,11 @@ public class WellController : MonoBehaviour {
     private Vector2 touchPos = new Vector2(0, 0);
     private float touchSpeed = 0f;
     private Vector2 relativeTouchPos = new Vector2(0, 0);
-    private bool isPosGood = false;
+    private bool end = false;
     // handle variables
     private float z = 0f;
+    private float distance = 0f;
+    private float timer = 0f;
 
 
     // Use this for initialization
@@ -22,6 +24,16 @@ public class WellController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if (distance > 300f)
+        {
+            end = true;
+            timer += Time.deltaTime;
+            if (timer > 1)
+            {
+                Application.LoadLevel("World1");
+            }
+        }
+
         z = Mathf.Abs(transform.eulerAngles.z);
         if (z > 180)
         {
@@ -42,7 +54,6 @@ public class WellController : MonoBehaviour {
             // end of touch
             if (Input.GetTouch(0).phase == TouchPhase.Ended)
             {
-                isPosGood = false;
             }
             //during the touch
             if (Input.GetTouch(0).phase == TouchPhase.Moved)
@@ -50,12 +61,12 @@ public class WellController : MonoBehaviour {
                 relativeTouchPos = new Vector2(touchPos.x - transform.position.x, touchPos.y - transform.position.y);
                 touchSpeed = Input.GetTouch(0).deltaPosition.magnitude;
                 float angle = Mathf.Atan2(relativeTouchPos.x, relativeTouchPos.y) * -180 / Mathf.PI;
-                Debug.Log(Mathf.Abs(Mathf.Abs(angle) - z));
                 if (Mathf.Abs(Mathf.Abs(angle) - z) < 60)
                 {
-                    if (relativeTouchPos.magnitude < radius)
+                    if (relativeTouchPos.magnitude < radius && !end)
                     {
                         transform.RotateAround(centre.position, Vector3.forward, touchSpeed * turningSpeed * Input.GetTouch(0).deltaTime);
+                        distance += touchSpeed * Input.GetTouch(0).deltaTime;
                     }         
                 }  
             }

@@ -12,5 +12,8 @@ EditorBuildSettings:
     path: Assets/Scenes/SnowMan.unity
     guid: 4bb84ffdac864db4a9761a8694ba16f0
   - enabled: 1
-    path: Assets/Scenes/MagneticLeaves.unity
+    path: Assets/Scenes/Leaves.unity
     guid: 7ea023e9958530e43b5c3dabcf17e102
+  - enabled: 1
+    path: Assets/Scenes/Well.unity
+    guid: 999f0b86b99520b449f2f8610029d4b9
