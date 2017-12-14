@@ -21,6 +21,7 @@ public class SunScript:MonoBehaviour {
     public float bump2;
     public float tranTime;
     public float gravity;
+    public static float nightFac = 0;
     public static bool night = false;
     public static bool playSun = false;
     public static float startTimeSun;
@@ -47,6 +48,15 @@ public class SunScript:MonoBehaviour {
     // Update is called once per frame
     void Update() {
         if(playSun) {
+            if(sun) {
+                if(night) {
+                    nightFac = (Time.time-startTimeSun)/tranTime;
+                }
+                else {
+                    nightFac = 1.0f-(Time.time-startTimeSun)/tranTime;
+                }
+                
+            }
             if(!(night ^ sun)) {
                 leap = (Time.time-startTimeSun)*v-0.5f*gravity*Mathf.Pow((Time.time-startTimeSun),2f);
                 if(Time.time-startTimeSun > tranTime) {
