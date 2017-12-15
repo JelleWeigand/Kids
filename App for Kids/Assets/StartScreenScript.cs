@@ -11,23 +11,30 @@ public class StartScreenScript : MonoBehaviour {
     private float speed;
     private float startTime;
     private float a;
+    private float b;
+    private float c;
+    private float diagonal;
+    private GameObject mask;
+
 
     public float pressSize;
     public float spinTime;
     public float initialSpeed;
-    private float b;
+    
 
 	// Use this for initialization
 	void Start () {
         speed = initialSpeed;
-        b = 12*(360-initialSpeed/2);
-        a = b/2-initialSpeed;
-	}
+        b = 360+2*initialSpeed;
+        c = Mathf.PI+2*Mathf.Acos(1-initialSpeed/b);
+        a = 0.5f;
+        mask = GameObject.Find("Mask");
+    }
 	
 
 	// Update is called once per frame
 	void Update () {
-        if(press&&!leave) {
+        if(press&&!leave&&!play) {
             if(Input.GetTouch(0).phase == TouchPhase.Ended) {
                 transform.localScale = transform.localScale * pressSize;
                 press = false;
@@ -37,9 +44,14 @@ public class StartScreenScript : MonoBehaviour {
 
 
         if(play) {
-            transform.Rotate(Vector3.forward * speed * Time.deltaTime );
-            float x = (Time.time-startTime);
-            speed += (a-b*x/spinTime)*Time.deltaTime;
+            float x = (Time.time-startTime)/spinTime;
+            transform.Rotate(Vector3.forward * b*Mathf.Cos(c*(x-a)) * Time.deltaTime );
+            float scale = Mathf.Clamp(diagonal *1.1f -diagonal*1.1f*x,0,diagonal*1.1f);
+            mask.transform.localScale = new Vector3(scale,scale,1);
+            if(x>1) {
+                Application.LoadLevel("World1");
+            }
+
         }
 	}
 
@@ -49,21 +61,25 @@ public class StartScreenScript : MonoBehaviour {
     }
 
     void OnMouseExit() {
-        if(press) {
+        if(press&&!play) {
             leave = true;
             transform.localScale = transform.localScale * pressSize;
         }
     }
     void OnMouseEnter() {
-        if(press) {
+        if(press&&!play) {
             leave = false;
             transform.localScale = transform.localScale / pressSize;
         }
     }
 
     void OnMouseUpAsButton() {
-        transform.localScale = transform.localScale * pressSize;
-        play = true;
-        startTime= Time.time;
+        if(!play) {
+            transform.localScale = transform.localScale * pressSize;
+            diagonal = 2*Camera.main.orthographicSize  * Mathf.Pow(Mathf.Pow(Camera.main.aspect,2)+1,0.5f);
+            Debug.Log(Camera.main.aspect);
+            play = true;
+            startTime= Time.time;
+        }
     }
 }
