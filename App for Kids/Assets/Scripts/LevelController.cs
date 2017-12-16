@@ -1,53 +1,72 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class LevelController : MonoBehaviour {
 
-    public static bool exit = false;
-    public bool start = true;
-    public float waitTime;
-    public float waitTimeExit;
-    public float zoomSpeed;
 
+    public static bool exit = false;
+    public float maskSize;
+    public float transitionTime;
+    public string backButton;
+
+    private float diagonal;
     private float startTime;
-    private float endTime = 0;
-    private GameObject cutOut;
-    private float maxSize;
-    // Use this for initialization
+    private GameObject mask;
+    private float exitTime;
+    private bool enter = true;
+    private string loadLevelName;
+    
+
+    public void Exit(string name) {
+        if (name == "BackButton") {
+            loadLevelName = backButton;
+        }
+        else {
+            loadLevelName = name;
+        }
+        exit = true;
+        exitTime = Time.time;
+        diagonal = Camera.main.orthographicSize * 2 * Mathf.Pow(Mathf.Pow(Camera.main.aspect,2f)+1, 0.5f);
+    }
+
     void Start () {
         startTime = Time.time;
-        cutOut = GameObject.Find("CutOut");
-        maxSize = 2*Camera.main.orthographicSize*Mathf.Pow(Mathf.Pow(Camera.main.aspect,2)+1,0.5f)*3;
-
+        mask = GameObject.Find("MaskLoadScene");
+        mask.transform.localScale = new Vector3(0, 0, 1);
+        diagonal = Camera.main.orthographicSize * 2 * Mathf.Pow(Mathf.Pow(Camera.main.aspect, 2f) + 1, 0.5f);
     }
 	
 	// Update is called once per frame
 	void Update () {
-        if(start) {
-            if(Time.time > startTime + waitTime) {
-                float x = (Time.time-startTime-waitTime)*zoomSpeed;
-                if(x>maxSize) {
-                    start = false;
-                    x = maxSize;
-                }
-                cutOut.transform.localScale = new Vector3(x,x,1);
+        if (Input.GetKeyUp(KeyCode.Escape)) { 
+            Exit("BackButton");
+            Debug.Log("Back Button Pressed");
+        }
+        if(enter) {
+            float x = (Time.time - startTime) / transitionTime;
+            float scale = Mathf.Clamp(diagonal * 1.1f * x, 0, diagonal * 1.1f)/maskSize;
+            mask.transform.localScale = new Vector3(scale, scale, 1);
+            if (x > 1) {
+                enter = false;
             }
         }
-        if(exit) {
-            if(endTime == 0) {
-                endTime = Time.time;
-            }
-            if(Time.time>endTime+waitTimeExit) {
-                float x = (Time.time-startTime-waitTime)*zoomSpeed;
-                if(x>maxSize) {
-                    start = false;
-                    x = maxSize;
-                }
-                cutOut.transform.localScale = new Vector3(x,x,1);
+        if (exit) {
+            float x = (Time.time - exitTime) / transitionTime;
+            float scale = Mathf.Clamp(diagonal * 1.1f * (1 - x), 0, diagonal * 1.1f)/maskSize;
+            mask.transform.localScale = new Vector3(scale, scale, 1);
+            if (x > 1) {
+                StartCoroutine(LoadNewScene(loadLevelName));
             }
         }
-        
 		
 	}
+    IEnumerator LoadNewScene(string levelName) {
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(levelName, LoadSceneMode.Single);
+        while (!asyncLoad.isDone) {
+            yield return null;
+        }
+    }
 }

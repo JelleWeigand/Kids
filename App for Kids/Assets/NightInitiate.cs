@@ -9,16 +9,16 @@ public class NightInitiate : MonoBehaviour {
     void Awake() {
             
     }
-    void Start () {
-        nighty = Instantiate(this.gameObject);
-        nightySr = nighty.GetComponent<SpriteRenderer>();
-        Sprite test = Resources.Load("Sprites and Textures/SnowMan/Background.png",typeof(Sprite)) as Sprite;
-        nightySr.sprite = test;
-    }
+ //   void Start () {
+ //       nighty = Instantiate(this.gameObject);
+ //       nightySr = nighty.GetComponent<SpriteRenderer>();
+ //       Sprite test = Resources.Load("Sprites and Textures/SnowMan/Background.png",typeof(Sprite)) as Sprite;
+ //       nightySr.sprite = test;
+ //   }
 	
-	// Update is called once per frame
-	void Update () {
-        nighty.transform.position = transform.position;
-        nightySr.color= new Color(1f,1f,1f,SunScript.nightFac);
-	}
+	//// Update is called once per frame
+	//void Update () {
+ //       nighty.transform.position = transform.position;
+ //       nightySr.color= new Color(1f,1f,1f,SunScript.nightFac);
+	//}
 }

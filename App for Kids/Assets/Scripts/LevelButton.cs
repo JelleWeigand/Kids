@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelButton : MonoBehaviour {
 
@@ -10,7 +11,7 @@ public class LevelButton : MonoBehaviour {
     {
         if (TouchControl.touchTap)
         {
-            Application.LoadLevel(levelName);
+            GameObject.Find("LevelController").GetComponent<LevelControllerMain>().LoadLevel(this.gameObject,levelName);
         }
     }
 }

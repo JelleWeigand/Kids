@@ -71,7 +71,7 @@ public class TouchControl : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        if (Input.touchCount > 0) {
+        if (Input.touchCount > 0 && !LevelControllerMain.exit && !LevelControllerMain.loadScreen) {
 
             //On first finger start of touch
             if (Input.GetTouch(0).phase == TouchPhase.Began) {
