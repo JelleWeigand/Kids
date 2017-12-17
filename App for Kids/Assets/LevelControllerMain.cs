@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LevelControllerMain : MonoBehaviour {
 
@@ -21,11 +22,11 @@ public class LevelControllerMain : MonoBehaviour {
     public static bool exit = false;
     public static bool loadScreen = false;
     public static bool load = true;
-    public static string loadLevel;
     public float transitionTime;
     public float loadTime;
     public string backButton;
     public float fadeTime;
+
 
     public void LoadLevel(GameObject GO,string levelName) {
         exit = true;
@@ -37,6 +38,7 @@ public class LevelControllerMain : MonoBehaviour {
         maskExit.transform.position = new Vector3(GO.transform.position.x, GO.transform.position.y, maskExit.transform.position.z);
         diagonal = 2*Mathf.Pow(Mathf.Pow(Camera.main.orthographicSize* Camera.main.aspect+ Mathf.Abs(GO.transform.position.x), 2)+
             Mathf.Pow(Camera.main.orthographicSize+Mathf.Abs(GO.transform.position.y) , 2), 0.5f);
+        TouchControl.xPosition = -TouchControl.layers[0].l.transform.position.x;
     }
 
     public void Exit(string levelName) {
@@ -52,14 +54,19 @@ public class LevelControllerMain : MonoBehaviour {
         exitTime = Time.time;
         maskExit.transform.position = new Vector3(0,0, maskExit.transform.position.z);
         diagonal = Camera.main.orthographicSize * 2 * Mathf.Pow(Mathf.Pow(Camera.main.aspect, 2f) + 1, 0.5f);
+        TouchControl.xPosition = 0;
     }
 
     // Use this for initialization
     void Start() {
+
+        //static variable decleration;
         enter = false;
         exit = false;
         loadScreen = false;
         load = true;
+
+
         positionObject = GameObject.Find("PositionObject");
         diagonal = 2 * Camera.main.orthographicSize * Mathf.Pow(Mathf.Pow(Camera.main.aspect, 2) + 1, 0.5f);
         mask = GameObject.Find("MaskLoadScene");
@@ -78,6 +85,9 @@ public class LevelControllerMain : MonoBehaviour {
     }
 
     void Update () {
+        if (Input.GetKeyUp(KeyCode.Escape)) {
+            Exit("BackButton");
+        }
         if(load) {
             if(Time.time-startTime > loadTime) {
                 startTime = Time.time;

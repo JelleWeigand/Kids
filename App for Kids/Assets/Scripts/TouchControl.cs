@@ -37,9 +37,11 @@ public class TouchControl : MonoBehaviour {
     public float slideSlopeExp;
     public static List<Layers> layers;
     public static float screenRatio;
+    public static float xPosition = 0f;
 
     // Use this for initialization
     void Start() {
+        touchTap = false;
         //Adding layers
         layers = new List<Layers> {
             new Layers(GameObject.Find("PositionObject"),GameObject.Find("PositionObject").transform.position.z),
@@ -49,6 +51,10 @@ public class TouchControl : MonoBehaviour {
             new Layers(GameObject.Find("BackgroundLayer"),10),
             new Layers(GameObject.Find("SunLayer"),10)
         };
+
+
+
+
         baseLayer = layers[0].l;
 
 
@@ -67,6 +73,12 @@ public class TouchControl : MonoBehaviour {
         borderRight = GameObject.Find("BorderRight").transform.position.x;
         screenRatio = 2 * Camera.main.orthographicSize / Screen.height;
         moveDistance = new Vector2(0, 0);
+
+
+       
+        foreach (Layers layer in layers) {
+            layer.l.transform.Translate(((xPosition) / layer.depth), 0, 0);
+        }
     }
 
     // Update is called once per frame

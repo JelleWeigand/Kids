@@ -23,6 +23,7 @@ public class StartScreenScript : MonoBehaviour {
     public float spinTime;
     public float initialSpeed;
     public float maskScale;
+    public float enterTime;
 
 	// Use this for initialization
 	void Start () {
@@ -58,6 +59,7 @@ public class StartScreenScript : MonoBehaviour {
             float scale = Mathf.Clamp(diagonal *1.1f -diagonal*1.1f*x,0,diagonal*1.1f)/maskScale;
             mask.transform.localScale = new Vector3(scale,scale,1);
             if(x>1) {
+                play = false;
                 StartCoroutine(LoadNewScene());
             }
 
@@ -103,6 +105,7 @@ public class StartScreenScript : MonoBehaviour {
             diagonal = 2*Camera.main.orthographicSize  * Mathf.Pow(Mathf.Pow(Camera.main.aspect,2)+1,0.5f);
             Debug.Log(Camera.main.aspect);
             play = true;
+            enter = false;
             startTime= Time.time;
         }
     }

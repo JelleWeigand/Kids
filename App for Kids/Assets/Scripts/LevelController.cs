@@ -33,6 +33,7 @@ public class LevelController : MonoBehaviour {
     }
 
     void Start () {
+        exit = false;
         startTime = Time.time;
         mask = GameObject.Find("MaskLoadScene");
         mask.transform.localScale = new Vector3(0, 0, 1);
@@ -58,6 +59,7 @@ public class LevelController : MonoBehaviour {
             float scale = Mathf.Clamp(diagonal * 1.1f * (1 - x), 0, diagonal * 1.1f)/maskSize;
             mask.transform.localScale = new Vector3(scale, scale, 1);
             if (x > 1) {
+                exit = false;
                 StartCoroutine(LoadNewScene(loadLevelName));
             }
         }
